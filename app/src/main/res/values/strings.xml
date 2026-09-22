@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">List Hub</string>
+    <string name="tagline">Keep track of your things</string>
+
+    <!-- Login -->
+    <string name="login_title">Welcome back</string>
+    <string name="email_hint">Email</string>
+    <string name="password_hint">Password</string>
+    <string name="login_button">Login</string>
+    <string name="google_button">Sign in with Google</string>
+    <string name="no_account_text">Don\'t have an account? Register</string>
+    <string name="forgot_password">Forgot password?</string>
+
+    <!-- Register -->
+    <string name="register_title">Create your account</string>
+    <string name="full_name_hint">Full Name</string>
+    <string name="confirm_password_hint">Confirm Password</string>
+    <string name="register_button">Register</string>
+    <string name="have_account_text">Already have an account? Login</string>
+
+    <!-- Dashboard -->
+    <string name="tab_all">All Tasks</string>
+    <string name="tab_today">Today</string>
+    <string name="tab_upcoming">Upcoming</string>
+    <string name="sync_button">Sync from API</string>
+    <string name="empty_state_text">No tasks yet. Tap + to add your first task.</string>
+    <string name="nav_settings">Settings</string>
+    <string name="nav_logout">Logout</string>
+
+    <!-- Add / Edit Task -->
+    <string name="add_task_title">Add Task</string>
+    <string name="edit_task_title">Edit Task</string>
+    <string name="title_hint">Title</string>
+    <string name="description_hint">Description (optional)</string>
+    <string name="due_date_label">Due Date &amp; Time</string>
+    <string name="priority_label">Priority</string>
+    <string name="category_label">Category</string>
+    <string name="save_button">Save Task</string>
+    <string name="delete_button">Delete</string>
+    <string name="pick_date_time">Pick due date &amp; time</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Settings</string>
+    <string name="dark_theme_label">Dark Theme</string>
+    <string name="dark_theme_sub">Easier on the eyes at night</string>
+    <string name="notifications_label">Notifications</string>
+    <string name="notifications_sub">Reminders for due tasks</string>
+    <string name="language_label">Language</string>
+
+    <string-array name="priority_options">
+        <item>Low</item>
+        <item>Medium</item>
+        <item>High</item>
+    </string-array>
+
+    <string-array name="category_options">
+        <item>Work</item>
+        <item>Personal</item>
+        <item>Health</item>
+        <item>Finance</item>
+        <item>Home</item>
+    </string-array>
+
+    <string-array name="language_options">
+        <item>English</item>
+        <item>Afrikaans</item>
+        <item>isiZulu</item>
+    </string-array>
+
+    <!-- Google Sign-In Web Client ID (Placeholder) -->
+    <!-- The Google Services plugin usually generates this from google-services.json.
+         We define it here as a placeholder to fix the "Unresolved reference" build error.
+         You should replace this with your actual Web Client ID from the Firebase console. -->
+    <string name="default_web_client_id">project-570870413218.apps.googleusercontent.com</string>
+
+</resources>

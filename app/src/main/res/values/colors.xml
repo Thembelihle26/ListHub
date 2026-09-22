@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- palette pulled from the mockups we made for Part 1 -->
+    <color name="cream">#FFF6EC</color>
+    <color name="peach">#FFD9C2</color>
+    <color name="pink">#FFC3D6</color>
+    <color name="lavender">#D8CFFF</color>
+
+    <color name="indigo">#5B4CFF</color>
+    <color name="indigo_dark">#3F30D6</color>
+    <color name="coral">#FF6F5E</color>
+    <color name="mint">#33CFB0</color>
+    <color name="amber">#FFB648</color>
+
+    <color name="ink">#2B2545</color>
+    <color name="ink_soft">#6B6483</color>
+    <color name="white">#FFFFFF</color>
+    <color name="input_bg">#F6F3FF</color>
+    <color name="input_border">#ECE7FF</color>
+
+    <color name="black">#000000</color>
+</resources>
