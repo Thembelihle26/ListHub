@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">List Hub</string>
+    <string name="tagline">Landela imisebenzi yakho</string>
+
+    <!-- Login -->
+    <string name="login_title">Siyakwamukela futhi</string>
+    <string name="email_hint">I-imeyili</string>
+    <string name="password_hint">Iphasiwedi</string>
+    <string name="login_button">Ngena</string>
+    <string name="google_button">Ngena nge-Google</string>
+    <string name="no_account_text">Awunayo i-akhawunti? Bhalisa</string>
+    <string name="forgot_password">Ukhohlwe iphasiwedi?</string>
+
+    <!-- Register -->
+    <string name="register_title">Dala i-akhawunti yakho</string>
+    <string name="full_name_hint">Igama eligcwele</string>
+    <string name="confirm_password_hint">Qinisekisa iphasiwedi</string>
+    <string name="register_button">Bhalisa</string>
+    <string name="have_account_text">Usunayo i-akhawunti? Ngena</string>
+
+    <!-- Dashboard -->
+    <string name="tab_all">Yonke imisebenzi</string>
+    <string name="tab_today">Namuhla</string>
+    <string name="tab_upcoming">Ezayo</string>
+    <string name="sync_button">Vumelanisa imisebenzi</string>
+    <string name="empty_state_text">Ayikho imisebenzi okwamanje. Cindezela + ukuze wengeze owokuqala.</string>
+    <string name="nav_settings">Izilungiselelo</string>
+    <string name="nav_logout">Phuma</string>
+
+    <!-- Add / Edit Task -->
+    <string name="add_task_title">Engeza umsebenzi</string>
+    <string name="edit_task_title">Hlela umsebenzi</string>
+    <string name="title_hint">Isihloko</string>
+    <string name="description_hint">Incazelo (uma uthanda)</string>
+    <string name="due_date_label">Usuku nesikhathi sokugcina</string>
+    <string name="priority_label">Okubalulekile</string>
+    <string name="category_label">Isigaba</string>
+    <string name="save_button">Gcina umsebenzi</string>
+    <string name="delete_button">Susa</string>
+    <string name="pick_date_time">Khetha usuku nesikhathi</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Izilungiselelo</string>
+    <string name="dark_theme_label">Itimu emnyama</string>
+    <string name="dark_theme_sub">Ilula emehlweni ebusuku</string>
+    <string name="notifications_label">Izaziso</string>
+    <string name="notifications_sub">Izikhumbuzi zemisebenzi</string>
+    <string name="language_label">Ulimi</string>
+
+    <string-array name="priority_options">
+        <item>Phansi</item>
+        <item>Phakathi</item>
+        <item>Phezulu</item>
+    </string-array>
+
+    <string-array name="category_options">
+        <item>Umsebenzi</item>
+        <item>Okomuntu</item>
+        <item>Impilo</item>
+        <item>Ezezimali</item>
+        <item>Ekhaya</item>
+    </string-array>
+
+    <string-array name="language_options">
+        <item>IsiNgisi</item>
+        <item>IsiBhunu</item>
+        <item>isiZulu</item>
+    </string-array>
+</resources>

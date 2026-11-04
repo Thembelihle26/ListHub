@@ -1,11 +1,4 @@
-# Android Studio auto-generates local.properties with your sdk.dir when you
-# first open this project - do NOT delete that line.
-#
-# Add this line yourself, underneath the sdk.dir line, using your own key:
-#
-# GOOGLE_TASKS_API_KEY=AIzaSyDr9EfxaecVp3zliYkFtg5jvnO1Fkfylxo
-#
-# This file (local.properties.example) is just a template committed to the
-# project so teammates know what to add. The real local.properties file is
-# in .gitignore and never gets committed, which is exactly where an API key
-# should live - never hardcoded directly in a .kt file or build.gradle.
+# Copy this file to local.properties and set your Android SDK path.
+sdk.dir=/path/to/Android/Sdk
+# Optional: Google Tasks API key used by the existing API sync feature.
+GOOGLE_TASKS_API_KEY=YOUR_GOOGLE_TASKS_API_KEY

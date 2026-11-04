@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+ android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical"
+ android:gravity="center" android:padding="24dp" android:background="@color/cream">
+ <Button android:id="@+id/btnBackFocus" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="← Back" android:textAllCaps="false" />
+ <TextView android:id="@+id/tvFocusStatus" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="36dp" android:text="Focus session" android:textColor="@color/ink" android:textSize="22sp" android:textStyle="bold" />
+ <TextView android:id="@+id/tvTimer" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="28dp" android:text="25:00" android:textColor="@color/indigo" android:textSize="64sp" android:textStyle="bold" />
+ <EditText android:id="@+id/etFocusTask" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="What are you focusing on?" android:singleLine="true" />
+ <Button android:id="@+id/btnStartTimer" android:layout_width="match_parent" android:layout_height="52dp" android:layout_marginTop="20dp" android:text="Start" android:textAllCaps="false" />
+ <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center" android:layout_marginTop="12dp">
+  <Button android:id="@+id/btnShortBreak" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="5 min break" android:textAllCaps="false" />
+  <Button android:id="@+id/btnLongBreak" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="15 min break" android:textAllCaps="false" />
+ </LinearLayout>
+ <Button android:id="@+id/btnFocusLength" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:text="Customise intervals" android:textAllCaps="false" />
+</LinearLayout>

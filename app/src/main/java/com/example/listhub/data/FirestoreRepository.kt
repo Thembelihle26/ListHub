@@ -17,6 +17,7 @@ class FirestoreRepository {
 
     private val usersCollection = firestore.collection("users")
     private val tasksCollection = firestore.collection("tasks")
+    private val focusCollection = firestore.collection("focusSessions")
 
     fun getCurrentUser(): FirebaseUser? = auth.currentUser
 
@@ -120,5 +121,9 @@ class FirestoreRepository {
 
     suspend fun deleteTask(task: Task) {
         tasksCollection.document(task.taskId).delete().await()
+    }
+
+    suspend fun recordFocusSession(ownerId: String, taskTitle: String, elapsedSeconds: Long, plannedMinutes: Int) {
+        focusCollection.add(mapOf("ownerId" to ownerId, "taskTitle" to taskTitle, "elapsedSeconds" to elapsedSeconds, "plannedMinutes" to plannedMinutes, "completedAt" to System.currentTimeMillis())).await()
     }
 }

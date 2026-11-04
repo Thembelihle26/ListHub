@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">List Hub</string>
+    <string name="tagline">Hou jou take dop</string>
+
+    <!-- Login -->
+    <string name="login_title">Welkom terug</string>
+    <string name="email_hint">E-pos</string>
+    <string name="password_hint">Wagwoord</string>
+    <string name="login_button">Teken in</string>
+    <string name="google_button">Teken in met Google</string>
+    <string name="no_account_text">Het jy nie \'n rekening nie? Registreer</string>
+    <string name="forgot_password">Wagwoord vergeet?</string>
+
+    <!-- Register -->
+    <string name="register_title">Skep jou rekening</string>
+    <string name="full_name_hint">Volle naam</string>
+    <string name="confirm_password_hint">Bevestig wagwoord</string>
+    <string name="register_button">Registreer</string>
+    <string name="have_account_text">Het jy reeds \'n rekening? Teken in</string>
+
+    <!-- Dashboard -->
+    <string name="tab_all">Alle take</string>
+    <string name="tab_today">Vandag</string>
+    <string name="tab_upcoming">Komende</string>
+    <string name="sync_button">Sinkroniseer take</string>
+    <string name="empty_state_text">Nog geen take nie. Tik + om jou eerste taak by te voeg.</string>
+    <string name="nav_settings">Instellings</string>
+    <string name="nav_logout">Teken uit</string>
+
+    <!-- Add / Edit Task -->
+    <string name="add_task_title">Voeg taak by</string>
+    <string name="edit_task_title">Wysig taak</string>
+    <string name="title_hint">Titel</string>
+    <string name="description_hint">Beskrywing (opsioneel)</string>
+    <string name="due_date_label">Sperdatum en tyd</string>
+    <string name="priority_label">Prioriteit</string>
+    <string name="category_label">Kategorie</string>
+    <string name="save_button">Stoor taak</string>
+    <string name="delete_button">Verwyder</string>
+    <string name="pick_date_time">Kies sperdatum en tyd</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Instellings</string>
+    <string name="dark_theme_label">Donker tema</string>
+    <string name="dark_theme_sub">Makliker op die oë in die nag</string>
+    <string name="notifications_label">Kennisgewings</string>
+    <string name="notifications_sub">Herinneringe vir take</string>
+    <string name="language_label">Taal</string>
+
+    <string-array name="priority_options">
+        <item>Laag</item>
+        <item>Medium</item>
+        <item>Hoog</item>
+    </string-array>
+
+    <string-array name="category_options">
+        <item>Werk</item>
+        <item>Persoonlik</item>
+        <item>Gesondheid</item>
+        <item>Finansies</item>
+        <item>Huis</item>
+    </string-array>
+
+    <string-array name="language_options">
+        <item>Engels</item>
+        <item>Afrikaans</item>
+        <item>isiZulu</item>
+    </string-array>
+</resources>

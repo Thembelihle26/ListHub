@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Gravity
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
@@ -12,6 +13,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.ItemTouchHelper
 import com.example.listhub.adapter.TaskAdapter
 import com.example.listhub.data.FirestoreRepository
 import com.example.listhub.data.PRIORITY_MEDIUM
@@ -23,6 +25,8 @@ import com.google.android.material.navigation.NavigationView
 import com.google.android.material.tabs.TabLayout
 import kotlinx.coroutines.launch
 import java.util.Calendar
+import java.util.Date
+import java.util.Locale
 
 class DashboardActivity : AppCompatActivity() {
 
@@ -58,6 +62,12 @@ class DashboardActivity : AppCompatActivity() {
         val tabLayout: TabLayout = findViewById(R.id.tabLayout)
         val fabAddTask: Button = findViewById(R.id.fabAddTask)
         val btnSync: Button = findViewById(R.id.btnSync)
+        val etQuickAdd: EditText = findViewById(R.id.etQuickAdd)
+        val btnQuickAdd: Button = findViewById(R.id.btnQuickAdd)
+        val btnFocusMode: Button = findViewById(R.id.btnFocusMode)
+        btnFocusMode.setOnClickListener { startActivity(Intent(this, FocusActivity::class.java)) }
+        findViewById<Button>(R.id.btnShareList).setOnClickListener { shareTaskList() }
+        btnQuickAdd.setOnClickListener { createQuickTask(etQuickAdd) }
 
         adapter = TaskAdapter(
             tasks = mutableListOf(),
@@ -66,6 +76,13 @@ class DashboardActivity : AppCompatActivity() {
         )
         recyclerTasks.layoutManager = LinearLayoutManager(this)
         recyclerTasks.adapter = adapter
+        val dragCallback = object : ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP or ItemTouchHelper.DOWN, 0) {
+            override fun onMove(rv: RecyclerView, vh: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
+                adapter.moveTask(vh.bindingAdapterPosition, target.bindingAdapterPosition); return true
+            }
+            override fun onSwiped(vh: RecyclerView.ViewHolder, direction: Int) = Unit
+        }
+        ItemTouchHelper(dragCallback).attachToRecyclerView(recyclerTasks)
 
         btnMenu.setOnClickListener { drawerLayout.openDrawer(Gravity.START) }
 
@@ -139,6 +156,8 @@ class DashboardActivity : AppCompatActivity() {
             }
 
             adapter.updateTasks(tasks)
+            val completed = tasks.count { it.isCompleted }
+            findViewById<TextView>(R.id.tvProductivity).text = "Productivity · $completed of ${tasks.size} completed (${if (tasks.isEmpty()) 0 else completed * 100 / tasks.size}%)"
             tvEmptyState.visibility = if (tasks.isEmpty()) android.view.View.VISIBLE else android.view.View.GONE
         }
     }
@@ -167,6 +186,46 @@ class DashboardActivity : AppCompatActivity() {
                 }
             }
             loadTasks()
+        }
+    }
+
+    private fun shareTaskList() {
+        val lines = adapter.currentTasks().joinToString("\n") { task ->
+            "${if (task.isCompleted) "[x]" else "[ ]"} ${task.title}" + (task.dueDate?.let { " — ${java.text.SimpleDateFormat("dd MMM HH:mm", Locale.getDefault()).format(Date(it))}" } ?: "")
+        }
+        val text = if (lines.isBlank()) "My List Hub task list is empty." else "My List Hub tasks\n$lines"
+        val share = Intent(Intent.ACTION_SEND).apply { type = "text/plain"; putExtra(Intent.EXTRA_TEXT, text) }
+        startActivity(Intent.createChooser(share, "Share task list"))
+    }
+
+    private fun createQuickTask(input: EditText) {
+        val raw = input.text.toString().trim()
+        if (raw.isBlank()) { input.error = "Enter a task"; return }
+        var due: Calendar? = null
+        var title = raw
+        val lower = raw.lowercase(Locale.getDefault())
+        val day = when { lower.contains("tomorrow") -> "tomorrow"; lower.contains("today") -> "today"; else -> null }
+        val timeMatch = Regex("(?i)\\b(1[0-2]|0?[1-9])(?::([0-5][0-9]))?\\s*(am|pm)\\b").find(raw)
+        if (day != null || timeMatch != null) {
+            due = Calendar.getInstance()
+            if (day == "tomorrow") due.add(Calendar.DAY_OF_MONTH, 1)
+            timeMatch?.let { m ->
+                var hour = m.groupValues[1].toInt(); val minute = m.groupValues[2].ifBlank { "0" }.toInt()
+                if (m.groupValues[3].equals("pm", true) && hour < 12) hour += 12
+                if (m.groupValues[3].equals("am", true) && hour == 12) hour = 0
+                due!!.set(Calendar.HOUR_OF_DAY, hour); due!!.set(Calendar.MINUTE, minute)
+            }
+            title = title.replace(Regex("(?i)\\btomorrow\\b|\\btoday\\b"), "")
+                .replace(Regex("(?i)\\b(1[0-2]|0?[1-9])(?::[0-5][0-9])?\\s*(am|pm)\\b"), "")
+                .replace(Regex("\\s+"), " ").trim()
+        }
+        if (title.isBlank()) { input.error = "Enter a task title"; return }
+        val uid = repository.getCurrentUser()?.uid ?: return
+        lifecycleScope.launch {
+            try {
+                repository.insertTask(Task(ownerId = uid, title = title, dueDate = due?.timeInMillis, priority = PRIORITY_MEDIUM, categoryId = "Personal"))
+                input.text.clear(); Toast.makeText(this@DashboardActivity, "Task added", Toast.LENGTH_SHORT).show(); loadTasks()
+            } catch (e: Exception) { Toast.makeText(this@DashboardActivity, "Couldn't add task: ${e.message}", Toast.LENGTH_LONG).show() }
         }
     }
 

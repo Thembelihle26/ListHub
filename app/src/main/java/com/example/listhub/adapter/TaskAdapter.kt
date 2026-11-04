@@ -86,6 +86,15 @@ class TaskAdapter(
 
     override fun getItemCount(): Int = tasks.size
 
+    fun moveTask(from: Int, to: Int) {
+        if (from !in tasks.indices || to !in tasks.indices) return
+        val moved = tasks.removeAt(from)
+        tasks.add(to, moved)
+        notifyItemMoved(from, to)
+    }
+
+    fun currentTasks(): List<Task> = tasks.toList()
+
     fun updateTasks(newTasks: List<Task>) {
         tasks = newTasks.toMutableList()
         notifyDataSetChanged() // yes, notifyDataSetChanged is not "best practice" with DiffUtil,

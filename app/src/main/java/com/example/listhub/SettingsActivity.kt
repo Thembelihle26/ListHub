@@ -11,6 +11,7 @@ import android.widget.Switch
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.os.LocaleListCompat
 import androidx.lifecycle.lifecycleScope
 import com.example.listhub.data.FirestoreRepository
 import kotlinx.coroutines.launch
@@ -26,7 +27,7 @@ class SettingsActivity : AppCompatActivity() {
     private lateinit var tvProfileEmail: TextView
     private lateinit var tvAvatarInitial: TextView
 
-    private var isInitialLoad = true
+    private var isProgrammaticSelection = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,9 +50,21 @@ class SettingsActivity : AppCompatActivity() {
         languageAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinnerLanguage.adapter = languageAdapter
 
+        // Set initial spinner selection based on currently active app locale or saved pref
+        val savedLang = getSharedPreferences("listhub_settings", MODE_PRIVATE).getString("language", null)
+        val activeLang = savedLang ?: getCurrentLanguageCode()
+        val initialIndex = when (activeLang) {
+            "af" -> 1
+            "zu" -> 2
+            else -> 0
+        }
+        isProgrammaticSelection = true
+        spinnerLanguage.setSelection(initialIndex)
+
         loadUserSettings()
 
         switchDarkTheme.setOnCheckedChangeListener { _, isChecked ->
+            getSharedPreferences("listhub_settings", MODE_PRIVATE).edit().putBoolean("theme_dark", isChecked).apply()
             AppCompatDelegate.setDefaultNightMode(
                 if (isChecked) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO
             )
@@ -64,17 +77,23 @@ class SettingsActivity : AppCompatActivity() {
 
         spinnerLanguage.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: android.view.View?, position: Int, id: Long) {
-                if (isInitialLoad) {
-                    isInitialLoad = false
+                if (isProgrammaticSelection) {
+                    isProgrammaticSelection = false
                     return
                 }
+
                 val code = when (position) {
                     1 -> "af"
                     2 -> "zu"
                     else -> "en"
                 }
+
+                val currentCode = getCurrentLanguageCode()
+                if (code == currentCode) return
+
+                getSharedPreferences("listhub_settings", MODE_PRIVATE).edit().putString("language", code).apply()
                 saveLanguagePreference(code)
-                // TODO: actually apply the locale using values-af/values-zu resources + recreate()
+                AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(code))
             }
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
@@ -88,6 +107,16 @@ class SettingsActivity : AppCompatActivity() {
         }
     }
 
+    private fun getCurrentLanguageCode(): String {
+        val locales = AppCompatDelegate.getApplicationLocales()
+        if (!locales.isEmpty) {
+            val tag = locales.toLanguageTags()
+            if (tag.startsWith("af", ignoreCase = true)) return "af"
+            if (tag.startsWith("zu", ignoreCase = true)) return "zu"
+        }
+        return "en"
+    }
+
     private fun loadUserSettings() {
         val uid = repository.getCurrentUser()?.uid ?: return
         lifecycleScope.launch {
@@ -97,6 +126,7 @@ class SettingsActivity : AppCompatActivity() {
             tvProfileEmail.text = profile.email
             tvAvatarInitial.text = profile.fullName.firstOrNull()?.uppercase() ?: "?"
 
+            getSharedPreferences("listhub_settings", MODE_PRIVATE).edit().putBoolean("theme_dark", profile.themeDark).putString("language", profile.languageCode).apply()
             switchDarkTheme.isChecked = profile.themeDark
             switchNotifications.isChecked = profile.notificationsEnabled
 
@@ -105,7 +135,10 @@ class SettingsActivity : AppCompatActivity() {
                 "zu" -> 2
                 else -> 0
             }
-            spinnerLanguage.setSelection(languageIndex)
+            if (spinnerLanguage.selectedItemPosition != languageIndex) {
+                isProgrammaticSelection = true
+                spinnerLanguage.setSelection(languageIndex)
+            }
         }
     }
 
