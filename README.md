@@ -8,8 +8,7 @@ Sent to One Drive (please check on outlook )
 
 
 Youtube Video Link 
-
-https://youtu.be/ZKSsKJ8H87k?si=lmD6dEhgzTVxwyXA
+https://youtu.be/Naf3HnnwwCI?si=EZXxsJn1a9hYy_02
 
 Youtube Channel URL 
 https://www.youtube.com/@OPSCGROUP19
@@ -27,6 +26,8 @@ Features
 * FocusFlow daily planner with AI-driven task suggestions
 * Dark/Light theme toggle
 * Colour-coded categories for visual organisationClean and intuitive user interface with Peach, White, and Purple colours
+* Focus Mode
+* Productivity Dashboard 
 
 Tech Stack
 
