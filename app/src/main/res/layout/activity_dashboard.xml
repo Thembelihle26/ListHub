@@ -13,7 +13,7 @@
         android:orientation="vertical"
         android:background="@color/cream">
 
-        <!-- Custom toolbar area (Karma / Level display lives here, per Screen 3 spec) -->
+        <!-- Custom toolbar area -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -72,107 +72,191 @@
 
         </LinearLayout>
 
-        <!-- Tabs + Sync button -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingTop="12dp"
-            android:paddingBottom="6dp"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:gravity="center_vertical">
-
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tabLayout"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                app:tabIndicatorColor="@color/coral"
-                app:tabSelectedTextColor="@color/coral"
-                app:tabTextColor="@color/ink_soft">
-
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/tab_all" />
-
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/tab_today" />
-
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/tab_upcoming" />
-
-            </com.google.android.material.tabs.TabLayout>
-
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/btnSync"
-            android:layout_width="wrap_content"
-            android:layout_height="36dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginBottom="6dp"
-            android:background="@drawable/bg_button_outline"
-            android:paddingStart="14dp"
-            android:paddingEnd="14dp"
-            android:text="@string/sync_button"
-            android:textAllCaps="false"
-            android:textColor="@color/indigo"
-            android:textSize="11sp" />
-
-        <LinearLayout
-            android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:orientation="vertical" android:paddingStart="16dp" android:paddingEnd="16dp" android:paddingTop="4dp">
-            <TextView android:id="@+id/tvProductivity" android:layout_width="match_parent" android:layout_height="wrap_content"
-                android:text="Productivity overview" android:textColor="@color/ink" android:textStyle="bold" android:padding="6dp" />
-            <com.Group19.listhub.ProductivityChartView
-                android:id="@+id/productivityChart"
-                android:layout_width="match_parent"
-                android:layout_height="155dp"
-                android:paddingStart="6dp"
-                android:paddingEnd="6dp"
-                android:contentDescription="Chart showing completed, pending and overdue tasks" />
-            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
-                <EditText android:id="@+id/etQuickAdd" android:layout_width="0dp" android:layout_height="48dp" android:layout_weight="1"
-                    android:hint="Quick add: Meet lecturer tomorrow 2pm" android:singleLine="true" android:paddingStart="10dp" android:background="@drawable/bg_input" />
-                <Button android:id="@+id/btnQuickAdd" android:layout_width="wrap_content" android:layout_height="48dp" android:text="Add" android:textAllCaps="false" />
-            </LinearLayout>
-            <Button android:id="@+id/btnShareList" android:layout_width="match_parent" android:layout_height="38dp" android:layout_marginTop="4dp" android:text="Share my task list" android:textAllCaps="false" />
-            <Button android:id="@+id/btnFocusMode" android:layout_width="match_parent" android:layout_height="42dp" android:layout_marginTop="5dp"
-                android:text="Start Focus Mode · Pomodoro" android:textAllCaps="false" />
-        </LinearLayout>
-
-        <!-- Task list -->
+        <!-- Scrollable container for Dashboard content + Tasks -->
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerTasks"
+            <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:clipToPadding="false"
-                android:paddingBottom="90dp"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                android:paddingTop="8dp" />
+                android:fillViewport="true">
 
-            <TextView
-                android:id="@+id/tvEmptyState"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/empty_state_text"
-                android:textAlignment="center"
-                android:textColor="@color/ink_soft"
-                android:visibility="gone" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <!-- Tabs + Sync button -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingTop="12dp"
+                        android:paddingBottom="6dp"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        android:gravity="center_vertical">
+
+                        <com.google.android.material.tabs.TabLayout
+                            android:id="@+id/tabLayout"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@android:color/transparent"
+                            app:tabIndicatorColor="@color/coral"
+                            app:tabSelectedTextColor="@color/coral"
+                            app:tabTextColor="@color/ink_soft">
+
+                            <com.google.android.material.tabs.TabItem
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/tab_all" />
+
+                            <com.google.android.material.tabs.TabItem
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/tab_today" />
+
+                            <com.google.android.material.tabs.TabItem
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/tab_upcoming" />
+
+                        </com.google.android.material.tabs.TabLayout>
+
+                    </LinearLayout>
+
+                    <Button
+                        android:id="@+id/btnSync"
+                        android:layout_width="wrap_content"
+                        android:layout_height="36dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginBottom="6dp"
+                        android:background="@drawable/bg_button_outline"
+                        android:paddingStart="14dp"
+                        android:paddingEnd="14dp"
+                        android:text="@string/sync_button"
+                        android:textAllCaps="false"
+                        android:textColor="@color/indigo"
+                        android:textSize="11sp" />
+
+                    <!-- Productivity Overview + Quick Add + Tools -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        android:paddingTop="4dp">
+
+                        <TextView
+                            android:id="@+id/tvProductivity"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Productivity overview"
+                            android:textColor="@color/ink"
+                            android:textStyle="bold"
+                            android:padding="6dp" />
+
+                        <com.Group19.listhub.ProductivityChartView
+                            android:id="@+id/productivityChart"
+                            android:layout_width="match_parent"
+                            android:layout_height="155dp"
+                            android:paddingStart="6dp"
+                            android:paddingEnd="6dp"
+                            android:contentDescription="Chart showing completed, pending and overdue tasks" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <EditText
+                                android:id="@+id/etQuickAdd"
+                                android:layout_width="0dp"
+                                android:layout_height="48dp"
+                                android:layout_weight="1"
+                                android:hint="Quick add: Meet lecturer tomorrow 2pm"
+                                android:singleLine="true"
+                                android:paddingStart="10dp"
+                                android:textColor="@color/ink"
+                                android:textColorHint="@color/ink_soft"
+                                android:background="@drawable/bg_input" />
+
+                            <Button
+                                android:id="@+id/btnQuickAdd"
+                                android:layout_width="wrap_content"
+                                android:layout_height="48dp"
+                                android:text="Add"
+                                android:textAllCaps="false" />
+
+                        </LinearLayout>
+
+                        <Button
+                            android:id="@+id/btnShareList"
+                            android:layout_width="match_parent"
+                            android:layout_height="38dp"
+                            android:layout_marginTop="4dp"
+                            android:text="Share my task list"
+                            android:textAllCaps="false" />
+
+                        <Button
+                            android:id="@+id/btnFocusMode"
+                            android:layout_width="match_parent"
+                            android:layout_height="42dp"
+                            android:layout_marginTop="5dp"
+                            android:text="Start Focus Mode · Pomodoro"
+                            android:textAllCaps="false" />
+
+                    </LinearLayout>
+
+                    <!-- Task List section -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingTop="12dp">
+
+                        <TextView
+                            android:id="@+id/tvTasksHeader"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingStart="22dp"
+                            android:paddingEnd="22dp"
+                            android:paddingBottom="4dp"
+                            android:text="Tasks"
+                            android:textColor="@color/ink"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recyclerTasks"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:clipToPadding="false"
+                            android:nestedScrollingEnabled="false"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"
+                            android:paddingTop="4dp"
+                            android:paddingBottom="90dp" />
+
+                        <TextView
+                            android:id="@+id/tvEmptyState"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="30dp"
+                            android:text="@string/empty_state_text"
+                            android:textAlignment="center"
+                            android:textColor="@color/ink_soft"
+                            android:visibility="gone" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </androidx.core.widget.NestedScrollView>
 
             <Button
                 android:id="@+id/fabAddTask"
@@ -197,6 +281,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
+        android:background="@color/cream"
         app:menu="@menu/drawer_menu" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

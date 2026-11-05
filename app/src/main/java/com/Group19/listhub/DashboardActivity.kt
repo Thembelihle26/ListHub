@@ -198,12 +198,10 @@ class DashboardActivity : AppCompatActivity() {
     }
 
     private fun shareTaskList() {
-        val lines = adapter.currentTasks().joinToString("
-") { task ->
+        val lines = adapter.currentTasks().joinToString("\n") { task ->
             "${if (task.isCompleted) "[x]" else "[ ]"} ${task.title}" + (task.dueDate?.let { " — ${java.text.SimpleDateFormat("dd MMM HH:mm", Locale.getDefault()).format(Date(it))}" } ?: "")
         }
-        val text = if (lines.isBlank()) "My List Hub task list is empty." else "My List Hub tasks
-$lines"
+        val text = if (lines.isBlank()) "My List Hub task list is empty." else "My List Hub tasks\n$lines"
         val share = Intent(Intent.ACTION_SEND).apply { type = "text/plain"; putExtra(Intent.EXTRA_TEXT, text) }
         startActivity(Intent.createChooser(share, "Share task list"))
     }

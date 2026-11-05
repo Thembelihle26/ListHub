@@ -60,10 +60,13 @@ class AddEditTaskActivity : AppCompatActivity() {
         spinnerPriority = findViewById(R.id.spinnerPriority)
         spinnerCategory = findViewById(R.id.spinnerCategory)
         spinnerRecurrence = findViewById(R.id.spinnerRecurrence)
+
         val recurrenceAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, listOf("Never", "Daily", "Weekly", "Monthly"))
         recurrenceAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinnerRecurrence.adapter = recurrenceAdapter
+
         requestNotificationPermissionIfNeeded()
+
         btnSave = findViewById(R.id.btnSave)
         btnDelete = findViewById(R.id.btnDelete)
         tvScreenTitle = findViewById(R.id.tvScreenTitle)
@@ -115,7 +118,6 @@ class AddEditTaskActivity : AppCompatActivity() {
 
             etTitle.setText(task.title)
             etDescription.setText(task.description ?: "")
-            spinnerRecurrence.setSelection(listOf("Never", "Daily", "Weekly", "Monthly").indexOf(task.recurrence).coerceAtLeast(0))
 
             spinnerPriority.setSelection(task.priority - 1)
 
@@ -250,12 +252,6 @@ class AddEditTaskActivity : AppCompatActivity() {
             } catch (e: Exception) {
                 Toast.makeText(this@AddEditTaskActivity, "Couldn't save task: ${e.message}", Toast.LENGTH_LONG).show()
             }
-        }
-    }
-
-    private fun requestNotificationPermissionIfNeeded() {
-        if (Build.VERSION.SDK_INT >= 33 && ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.POST_NOTIFICATIONS), 410)
         }
     }
 

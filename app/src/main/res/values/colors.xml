@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- palette pulled from the mockups we made for Part 1 -->
+    <!-- palette pulled from the mockups -->
     <color name="cream">#FFF6EC</color>
     <color name="peach">#FFD9C2</color>
     <color name="pink">#FFC3D6</color>
@@ -15,6 +15,7 @@
     <color name="ink">#2B2545</color>
     <color name="ink_soft">#6B6483</color>
     <color name="white">#FFFFFF</color>
+    <color name="card_bg">#FFFFFF</color>
     <color name="input_bg">#F6F3FF</color>
     <color name="input_border">#ECE7FF</color>
 

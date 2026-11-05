@@ -1,17 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="cream">#171526</color>
-    <color name="peach">#342B3A</color>
-    <color name="pink">#453044</color>
-    <color name="lavender">#302D48</color>
-    <color name="indigo">#A69BFF</color>
-    <color name="indigo_dark">#7669E8</color>
+    <color name="cream">#12101F</color>
+    <color name="peach">#2D2436</color>
+    <color name="pink">#3D293C</color>
+    <color name="lavender">#27243D</color>
+    <color name="indigo">#8C7EFF</color>
+    <color name="indigo_dark">#6050E0</color>
     <color name="coral">#FF887A</color>
     <color name="mint">#53D9BE</color>
     <color name="amber">#FFC66D</color>
     <color name="ink">#F5F1FF</color>
     <color name="ink_soft">#B8B1CC</color>
     <color name="white">#FFFFFF</color>
-    <color name="input_bg">#29263B</color>
-    <color name="input_border">#403B58</color>
+    <color name="card_bg">#1F1A33</color>
+    <color name="input_bg">#29243E</color>
+    <color name="input_border">#3E375B</color>
     <color name="black">#000000</color>
 </resources>

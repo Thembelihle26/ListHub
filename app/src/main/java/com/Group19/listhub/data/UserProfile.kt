@@ -19,5 +19,6 @@ data class UserProfile(
 
     var themeDark: Boolean = false,
     var notificationsEnabled: Boolean = true,
-    var languageCode: String = "en" // en / af / zu
+    var languageCode: String = "en", // en / af / zu
+    var fcmToken: String? = null
 )

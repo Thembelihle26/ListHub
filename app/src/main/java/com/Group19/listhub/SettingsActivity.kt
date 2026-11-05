@@ -6,6 +6,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.LinearLayout
 import android.widget.Spinner
 import android.widget.Switch
 import android.widget.TextView
@@ -34,6 +35,8 @@ class SettingsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_settings)
 
         val btnBack: ImageButton = findViewById(R.id.btnBack)
+        val rowDarkTheme: LinearLayout = findViewById(R.id.rowDarkTheme)
+        val rowNotifications: LinearLayout = findViewById(R.id.rowNotifications)
         switchDarkTheme = findViewById(R.id.switchDarkTheme)
         switchNotifications = findViewById(R.id.switchNotifications)
         spinnerLanguage = findViewById(R.id.spinnerLanguage)
@@ -43,6 +46,12 @@ class SettingsActivity : AppCompatActivity() {
         val btnLogout: Button = findViewById(R.id.btnLogout)
 
         btnBack.setOnClickListener { finish() }
+        rowDarkTheme.setOnClickListener { switchDarkTheme.toggle() }
+        rowNotifications.setOnClickListener { switchNotifications.toggle() }
+
+        val prefs = getSharedPreferences("listhub_settings", MODE_PRIVATE)
+        val initialDark = prefs.getBoolean("theme_dark", false)
+        switchDarkTheme.isChecked = initialDark
 
         val languageAdapter = ArrayAdapter.createFromResource(
             this, R.array.language_options, android.R.layout.simple_spinner_item
@@ -51,7 +60,7 @@ class SettingsActivity : AppCompatActivity() {
         spinnerLanguage.adapter = languageAdapter
 
         // Set initial spinner selection based on currently active app locale or saved pref
-        val savedLang = getSharedPreferences("listhub_settings", MODE_PRIVATE).getString("language", null)
+        val savedLang = prefs.getString("language", null)
         val activeLang = savedLang ?: getCurrentLanguageCode()
         val initialIndex = when (activeLang) {
             "af" -> 1
@@ -65,10 +74,11 @@ class SettingsActivity : AppCompatActivity() {
 
         switchDarkTheme.setOnCheckedChangeListener { _, isChecked ->
             getSharedPreferences("listhub_settings", MODE_PRIVATE).edit().putBoolean("theme_dark", isChecked).apply()
+            saveThemePreference(isChecked)
+
             AppCompatDelegate.setDefaultNightMode(
                 if (isChecked) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO
             )
-            saveThemePreference(isChecked)
         }
 
         switchNotifications.setOnCheckedChangeListener { _, isChecked ->
@@ -127,7 +137,10 @@ class SettingsActivity : AppCompatActivity() {
             tvAvatarInitial.text = profile.fullName.firstOrNull()?.uppercase() ?: "?"
 
             getSharedPreferences("listhub_settings", MODE_PRIVATE).edit().putBoolean("theme_dark", profile.themeDark).putString("language", profile.languageCode).apply()
-            switchDarkTheme.isChecked = profile.themeDark
+
+            if (switchDarkTheme.isChecked != profile.themeDark) {
+                switchDarkTheme.isChecked = profile.themeDark
+            }
             switchNotifications.isChecked = profile.notificationsEnabled
 
             val languageIndex = when (profile.languageCode) {
