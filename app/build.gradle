@@ -18,11 +18,11 @@ if (localPropertiesFile.exists()) {
 def googleTasksApiKey = localProperties.getProperty("GOOGLE_TASKS_API_KEY", "")
 
 android {
-    namespace 'com.example.listhub'
+    namespace 'com.Group19.listhub'
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.example.listhub"
+        applicationId "com.Group19.listhub"
         minSdk 26
         targetSdk 34
         versionCode 1
@@ -61,11 +61,15 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.12.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'androidx.activity:activity-ktx:1.8.2'
+    implementation 'androidx.credentials:credentials-play-services-auth:1.6.0'
+    implementation 'androidx.credentials:credentials:1.6.0'
+    implementation 'com.google.android.libraries.identity.googleid:googleid:1.2.1'
     implementation 'com.google.android.material:material:1.11.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.recyclerview:recyclerview:1.3.2'
     implementation 'androidx.drawerlayout:drawerlayout:1.2.0'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.7.0'
+    implementation 'androidx.work:work-runtime-ktx:2.9.0'
 
     // Firebase - replaces RoomDB per the brief. BoM keeps all Firebase versions in sync.
     implementation(platform("com.google.firebase:firebase-bom:32.7.0"))
@@ -76,6 +80,7 @@ dependencies {
 
     // Google Sign-In (SSO) + lets us request the Tasks API OAuth scope
     implementation 'com.google.android.gms:play-services-auth:21.0.0'
+    implementation 'com.google.firebase:firebase-messaging:26.0.1'
 
     // lets us call FirebaseFirestore's Task<T> results with .await() in coroutines
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.7.3'

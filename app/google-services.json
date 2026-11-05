@@ -8,6 +8,43 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:116281775245:android:6a4d21855fb962266e7ec4",
+        "android_client_info": {
+          "package_name": "com.Group19.listhub"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "116281775245-25udt8qklvgl2jr8lcobk46t0245po8i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.Group19.listhub",
+            "certificate_hash": "ee19503f1bcc709ac55e7a958e0e737b802e16b4"
+          }
+        },
+        {
+          "client_id": "116281775245-leinvsjaqcla4ann35bvqc45lvb8n7qi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDGvIA_TUJ8tXUxFUdkcf1sUqogRAnYkyc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "116281775245-leinvsjaqcla4ann35bvqc45lvb8n7qi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:116281775245:android:dfe3c5c22b33b4846e7ec4",
         "android_client_info": {
           "package_name": "com.example.listhub"
